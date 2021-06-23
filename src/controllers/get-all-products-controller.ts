@@ -1,17 +1,21 @@
-import { Controller } from "./protocols/controller";
-import { Request, Response, response } from 'express'
+import { Controller, HttpResponse, HttpRequest } from "./protocols/controller";
 import { product } from '../models/product'
 
 export class GetAllProductsController implements Controller {
-  async handle (httpRequest: Request): Promise<Response> {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      console.log('Product: ', product)
       const products = await product.find({})
-      if (!products) {
-        return response.status(204)
+      console.log('Products: ', products)
+      return {
+        statusCode: 200,
+        body: products
       }
-      return response.status(200).json(products)
     } catch (err) {
-      return response.status(500).json(err.stack)
+       return {
+        statusCode: 500,
+        body: err.message
+      }
     }
   }
 }

@@ -1,18 +1,26 @@
-import { Controller } from "./protocols/controller";
-import { Request, Response, response } from 'express'
+import { Controller, HttpRequest, HttpResponse } from "./protocols/controller";
 import { product } from '../models/product'
 
 export class DeleteProductController implements Controller {
-  async handle (httpRequest: Request): Promise<Response> {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { id } = httpRequest.params
       if (!id) {
-        return response.status(400)
+        return {
+          statusCode: 400,
+          body: new Error('Faltando parâmentro: id')
+        }
       }
-      const products = await product.deleteOne({ id })
-      return response.status(200).json(products)
+      const products = await product.deleteOne({ _id: id })
+      return {
+        statusCode: 200,
+        body: products
+      }
     } catch (err) {
-      return response.status(500).json(err.stack)
+      return {
+        statusCode: 500,
+        body: err.message
+      }
     }
   }
 }

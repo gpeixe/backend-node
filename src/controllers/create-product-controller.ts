@@ -1,26 +1,30 @@
-import { Controller } from "./protocols/controller";
-import { Request, Response, response } from 'express'
+import { Controller, HttpResponse, HttpRequest } from "./protocols/controller";
 import { product } from '../models/product'
 
 export class CreateProductController implements Controller {
-  async handle (httpRequest: Request): Promise<Response> {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { body } = httpRequest.body
-      const requiredFields = ['title', 'price', 'description', 'imageUrl']
+      const { body } = httpRequest
+      const requiredFields = ['name', 'price', 'description', 'imageUrl']
       for (const field of requiredFields) {
         if(!body[field]) {
-          return response.status(400).json('Informe o campo: ' + field)
+          return {
+            statusCode: 400,
+            body: new Error('Faltando parâmentro: ' + field)
+          }
         }
       }
-      const productCreated = await product.create({
-        title: body.title,
-        price: body.price,
-        description: body.description,
-        imageUrl: body.imageUrl
-      })
-      return response.status(201).json(productCreated)
+      const productCreated = await product.create(body)
+      return {
+        statusCode: 201,
+        body: productCreated
+      }
     } catch (err) {
-      return response.status(500).json(err.stack)
+      console.log('Err: ', err)
+      return {
+        statusCode: 500,
+        body: err.message
+      }
     }
   }
 }
