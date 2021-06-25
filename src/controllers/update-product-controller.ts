@@ -5,19 +5,28 @@ export class UpdateProductController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { id } = httpRequest.params
-      const { body } = httpRequest.body
+      const { body } = httpRequest
+      console.log("Request: ", httpRequest)
       if (!id) {
         return {
           statusCode: 400,
           body: new Error('Faltando parâmentro: id')
         }
       }
-      const productUpdated = await product.updateOne({ _id: id }, body)
+      const { name, price, description, imageUrl } = body
+      const productToUpdate = {
+        name,
+        price,
+        description,
+        imageUrl
+      }
+      const productUpdated = await product.updateOne({ _id: id }, productToUpdate)
       return {
         statusCode: 200,
         body: productUpdated
       }
     } catch (err) {
+      console.log("Err: ", err.message)
       return {
         statusCode: 500,
         body: err.message

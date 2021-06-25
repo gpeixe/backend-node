@@ -14,7 +14,9 @@ export class CreateProductController implements Controller {
           }
         }
       }
-      const productCreated = await product.create(body)
+      const { name, title, description, imageUrl } = body
+      const productToAdd = { name, title, description, imageUrl }
+      const productCreated = await product.create(productToAdd)
       return {
         statusCode: 201,
         body: productCreated
