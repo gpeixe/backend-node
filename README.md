@@ -14,10 +14,9 @@
 
  - Atualizar um produto: [PUT] http://localhost:4000/products/_id
 
-### Tanto para criar quando para atualizar um produto
+### Tanto para criar (POST) quando para atualizar (PUT) um produto
   O conteúdo do Body requer:
     
   name: String
   price: Number
   description: String
-  imageUrl: String
