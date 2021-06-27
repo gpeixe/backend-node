@@ -14,11 +14,10 @@
 
  - Atualizar um produto: [PUT] http://localhost:4000/products/_id
 
-### Tanto para criar (POST) quando para atualizar (PUT) um produto
-  O conteúdo do Body requer:
+### Tanto para criar (POST) quanto para atualizar (PUT) um produto, o conteúdo do Body deve ser um JSON com as seguintes propriedades:
     
-  name: String, 
-  
-  price: Number,
-  
-  description: String,
+  { 
+   "name": String, 
+   "price": Number,
+   "description": String,
+  }
