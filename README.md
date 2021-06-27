@@ -21,3 +21,6 @@
    "price": Number,
    "description": String,
   }
+
+## Link para o Front-end: 
+ - https://github.com/gpeixe/frontend-angular-deploy-tc2
