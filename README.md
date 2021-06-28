@@ -14,10 +14,13 @@
 
  - Atualizar um produto: [PUT] http://localhost:4000/products/_id
 
-### Tanto para criar quando para atualizar um produto
-  O conteúdo do Body requer:
+### Tanto para criar (POST) quanto para atualizar (PUT) um produto, o conteúdo do Body deve ser um JSON com as seguintes propriedades:
     
-  name: String
-  price: Number
-  description: String
-  imageUrl: String
+  { 
+   "name": String, 
+   "price": Number,
+   "description": String,
+  }
+
+## Link para o Front-end: 
+ - https://github.com/gpeixe/frontend-angular-deploy-tc2
