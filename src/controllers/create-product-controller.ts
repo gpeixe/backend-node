@@ -5,7 +5,8 @@ export class CreateProductController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { body } = httpRequest
-      const requiredFields = ['name', 'price', 'description', 'imageUrl']
+      console.log("Body: ", body)   
+      const requiredFields = ['name', 'price', 'description']
       for (const field of requiredFields) {
         if(!body[field]) {
           return {
@@ -14,8 +15,8 @@ export class CreateProductController implements Controller {
           }
         }
       }
-      const { name, title, description, imageUrl } = body
-      const productToAdd = { name, title, description, imageUrl }
+      const { name, price, description } = body
+      const productToAdd = { name, price, description }
       const productCreated = await product.create(productToAdd)
       return {
         statusCode: 201,

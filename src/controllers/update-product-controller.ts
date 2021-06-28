@@ -13,12 +13,11 @@ export class UpdateProductController implements Controller {
           body: new Error('Faltando parâmentro: id')
         }
       }
-      const { name, price, description, imageUrl } = body
+      const { name, price, description } = body
       const productToUpdate = {
         name,
         price,
-        description,
-        imageUrl
+        description
       }
       const productUpdated = await product.updateOne({ _id: id }, productToUpdate)
       return {
